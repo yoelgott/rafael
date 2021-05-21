@@ -1,5 +1,9 @@
+import abc
+import time
 import pandas as pd
 import sqlite3
+
+from config import *
 
 
 class SqlLiteConnection:
@@ -37,3 +41,43 @@ class SqlLiteConnection:
     def get_connection(self):
         """ get the connection object """
         return self.conn
+
+
+def k_way_merge(*args) -> list:
+    merged_list = []
+    list_iterators = [iter(li) for li in args]
+    current_values = [next(itr) for itr in list_iterators]
+
+    while True:
+        min_val = min(current_values)
+        for val in current_values:
+            if val == min_val:
+                merged_list.append(val)
+        current_values = [next(itr, None) if current_values[i] == min_val else current_values[i] for i, itr in
+                          enumerate(list_iterators)]
+        if not any(current_values):
+            break
+    return merged_list
+
+
+class Step0:
+    def __init__(self, db_file=DB_FILE):
+        self.sql_con = SqlLiteConnection(db_file)
+
+    @abc.abstractmethod
+    def run(self):
+        pass
+
+    @staticmethod
+    def sorting_names(names: list) -> list:
+        names.sort()
+        return names
+
+    def store_in_db(self, names_list, process_time, step_num):
+        df = pd.DataFrame({f"sorting_step{step_num}": names_list})
+        df[f"Sorting_step{step_num}_Process_time"] = process_time
+        self.sql_con.dump_to_db(df, table_name=OUTPUT_TABLE_NAME, if_exists="replace")
+
+    def get_ads(self):
+        df = self.sql_con.query_db(QUERY_ADS)
+        return df
