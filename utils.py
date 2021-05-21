@@ -1,6 +1,6 @@
 import abc
-import time
 import pandas as pd
+import numpy as np
 import sqlite3
 
 from config import *
@@ -67,6 +67,12 @@ class Step0:
     @abc.abstractmethod
     def run(self):
         pass
+
+    @staticmethod
+    def split_to_chunks(names):
+        splits_num = int(len(names) / CHUNK_SIZE)
+        chunks = [list(li) for li in np.split(names, splits_num)]
+        return chunks
 
     @staticmethod
     def sorting_names(names: list) -> list:
