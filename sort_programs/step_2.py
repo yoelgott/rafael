@@ -3,7 +3,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 import pandas as pd
 
-from utils import Step0
+from utils import Step0, k_way_merge
 from config import *
 
 
@@ -16,12 +16,13 @@ class Step2(Step0):
         df: pd.DataFrame = self.get_ads()
 
         chunk_names = self.split_to_chunks(df[AdsTableCols.NAME.value])
+        chunk_names = [self.sorting_names(chunk) for chunk in chunk_names]
+        merged_names = k_way_merge(*chunk_names)
 
         end_time = time.perf_counter()
-
         process_time = end_time - start_time
 
-        self.store_in_db(names_list, process_time, step_num=1)
+        self.store_in_db(merged_names, process_time, step_num=2)
         self.sql_con.close_connection()
 
 

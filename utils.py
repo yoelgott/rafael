@@ -46,17 +46,20 @@ class SqlLiteConnection:
 def k_way_merge(*args) -> list:
     merged_list = []
     list_iterators = [iter(li) for li in args]
-    current_values = [next(itr) for itr in list_iterators]
+    iterators_dict = {itr: next(itr) for itr in list_iterators}
 
     while True:
-        min_val = min(current_values)
-        for val in current_values:
+        min_val = min(iterators_dict.values())
+        for val in iterators_dict.values():
             if val == min_val:
                 merged_list.append(val)
-        current_values = [next(itr, None) if current_values[i] == min_val else current_values[i] for i, itr in
-                          enumerate(list_iterators)]
-        if not any(current_values):
+
+        iterators_dict = {itr: next(itr, None) if val == min_val else val for itr, val in iterators_dict.items()}
+        iterators_dict = {itr: val for itr, val in iterators_dict.items() if val}
+
+        if len(iterators_dict) == 0:
             break
+
     return merged_list
 
 
