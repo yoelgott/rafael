@@ -83,9 +83,13 @@ class Step0:
         return names
 
     def store_in_db(self, names_list, process_time, step_num):
-        df = pd.DataFrame({f"sorting_step{step_num}": names_list})
+        try:
+            df = self.sql_con.query_db(QUERY_RESULTS)
+        except:
+            df = pd.DataFrame()
+        df[f"sorting_step{step_num}"] = names_list
         df[f"Sorting_step{step_num}_Process_time"] = process_time
-        self.sql_con.dump_to_db(df, table_name=OUTPUT_TABLE_NAME, if_exists="replace")
+        self.sql_con.dump_to_db(df, table_name=RESULTS_TABLE_NAME, if_exists="replace")
 
     def get_ads(self):
         df = self.sql_con.query_db(QUERY_ADS)
