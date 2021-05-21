@@ -3,7 +3,7 @@ from concurrent.futures import ProcessPoolExecutor
 
 import pandas as pd
 
-from utils import SqlLiteConnection, Step0
+from utils import Step0
 from config import *
 
 
