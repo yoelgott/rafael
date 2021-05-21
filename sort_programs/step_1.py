@@ -23,8 +23,6 @@ class Step1:
         self.store_in_db(names_list, process_time)
         self.sql_con.close_connection()
 
-        print("finished")
-
     @staticmethod
     def sorting_names(names: list) -> list:
         names.sort()
