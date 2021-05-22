@@ -1,8 +1,10 @@
 import abc
 import pandas as pd
 import sqlite3
+import sys
 
-from config import *
+sys.path.append("./")
+from rafael.config import *
 
 
 class SqlLiteConnection:
