@@ -15,8 +15,11 @@ class Step2(Step0):
         start_time = time.perf_counter()
         df: pd.DataFrame = self.get_ads()
 
+        for i in range(10):
+            self.chunk_handler(i)
+
         chunk_names = self.split_to_chunks(df[AdsTableCols.NAME.value])
-        chunk_names = [self.sorting_names(chunk) for chunk in chunk_names]
+        chunk_names = [self.sort_names(chunk) for chunk in chunk_names]
         merged_names = k_way_merge(*chunk_names)
 
         end_time = time.perf_counter()

@@ -17,8 +17,8 @@ class Step1:
         df = df.sort_values(by="name")
         self.sql_con.close_connection()
 
-    def get_ads(self):
-        df = self.sql_con.query_db(QUERY_ADS)
+    def get_ads(self, query=QUERY_ADS):
+        df = self.sql_con.query_db(query)
         return df
 
 

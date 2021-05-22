@@ -78,9 +78,9 @@ class Step0:
         return chunks
 
     @staticmethod
-    def sorting_names(names: list) -> list:
-        names.sort()
-        return names
+    def sort_names(df: pd.DataFrame, col_name=AdsTableCols.NAME.value) -> list:
+        names_list = df[col_name].sort_values().to_list()
+        return names_list
 
     def store_in_db(self, names_list, process_time, step_num):
         try:
@@ -91,6 +91,12 @@ class Step0:
         df[f"Sorting_step{step_num}_Process_time"] = process_time
         self.sql_con.dump_to_db(df, table_name=RESULTS_TABLE_NAME, if_exists="replace")
 
-    def get_ads(self):
-        df = self.sql_con.query_db(QUERY_ADS)
+    def get_ads(self, query=QUERY_ADS):
+        df = self.sql_con.query_db(query)
         return df
+
+    def chunk_handler(self, chunk_num=0, chunk_size=CHUNK_SIZE):
+        query = f"{QUERY_ADS} as a where a.[index] between {chunk_num * chunk_size} and {(chunk_num + 1) * chunk_size - 1}"
+        chunk_df = self.get_ads(query)
+        names_list = self.sort_names(chunk_df)
+        return chunk_df

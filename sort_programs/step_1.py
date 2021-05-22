@@ -12,12 +12,9 @@ class Step1(Step0):
     def run(self):
         start_time = time.perf_counter()
         df: pd.DataFrame = self.get_ads()
-        names_list = df[AdsTableCols.NAME.value].to_list()
-        names_list = self.sorting_names(names_list)
+        names_list = self.sort_names(df)
         end_time = time.perf_counter()
-
         process_time = end_time - start_time
-
         self.store_in_db(names_list, process_time, step_num=1)
         self.sql_con.close_connection()
 
