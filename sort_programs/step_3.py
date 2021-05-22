@@ -10,17 +10,13 @@ from config import *
 class Step3(Step0):
     def __init__(self):
         super().__init__(f"../{DB_FILE}")
-        # super().__init__()
 
     def run(self):
         start_time = time.perf_counter()
 
         chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
-        chunks_num = [i for i in range(chunks_amount)]
         with ThreadPoolExecutor() as executer:
-            chunks = executer.map(self.chunk_handler, chunks_num)
-
-        chunk_names = [chunk for chunk in chunks]
+            chunk_names = list(executer.map(self.chunk_handler, range(chunks_amount)))
         merged_names = k_way_merge(*chunk_names)
 
         end_time = time.perf_counter()

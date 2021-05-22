@@ -13,7 +13,8 @@ class Step2(Step0):
 
     def run(self):
         start_time = time.perf_counter()
-        chunk_names = [self.chunk_handler(i) for i in range(int(RECORDS_NUM / CHUNK_SIZE))]
+        chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
+        chunk_names = [self.chunk_handler(i) for i in range(chunks_amount)]
         merged_names = k_way_merge(*chunk_names)
         end_time = time.perf_counter()
         process_time = end_time - start_time
