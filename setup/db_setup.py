@@ -1,9 +1,15 @@
+import sys
 import pandas as pd
 import datetime as dt
 import random
 
-from utils import SqlLiteConnection
-from config import *
+try:
+    from utils import SqlLiteConnection
+    from config import *
+except:
+    sys.path.append("../")
+    from rafael.utils import SqlLiteConnection
+    from rafael.config import *
 
 
 class CreateAdsTable:
