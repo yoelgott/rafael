@@ -1,19 +1,18 @@
 import abc
 import pandas as pd
-import numpy as np
 import sqlite3
 
 from config import *
 
 
 class SqlLiteConnection:
-    def __init__(self, db_file="db/rafael.db"):
+    def __init__(self, db_file=DB_FILE):
         self.conn = self._connect_to_db(db_file)
 
     @staticmethod
     def _connect_to_db(db_file: str):
         """ create a database connection to a SQLite database """
-        conn = sqlite3.connect(db_file)
+        conn = sqlite3.connect(db_file, check_same_thread=False)
         return conn
 
     def dump_to_db(self, df: pd.DataFrame, table_name: str, if_exists="append", index=False):
@@ -66,6 +65,7 @@ def k_way_merge(*args) -> list:
 class Step0:
     def __init__(self, db_file=DB_FILE):
         self.sql_con = SqlLiteConnection(db_file)
+        self.db_file = db_file
 
     @abc.abstractmethod
     def run(self):
