@@ -1,7 +1,7 @@
 from enum import Enum
 import string
 
-RECORDS_NUM = 200000
+RECORDS_NUM = 20000
 MIN_CHARS_AMOUNT = 5
 MAX_CHARS_AMOUNT = 15
 CHARS_POOL = string.digits + string.ascii_letters

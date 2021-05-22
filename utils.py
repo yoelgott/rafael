@@ -73,7 +73,8 @@ class Step0:
 
     @staticmethod
     def sort_names(df: pd.DataFrame, col_name=AdsTableCols.NAME.value) -> list:
-        names_list = df[col_name].sort_values().to_list()
+        names_list = df[col_name].to_list()
+        names_list.sort()
         return names_list
 
     def store_in_db(self, names_list, process_time, step_num, table_name=RESULTS_TABLE_NAME):
