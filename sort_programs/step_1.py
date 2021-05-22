@@ -1,5 +1,4 @@
 import time
-import pandas as pd
 
 from utils import Step0
 from config import *
@@ -13,7 +12,7 @@ class Step1(Step0):
     def run(self):
         print(f"Started step number - {self.step_num}")
         start_time = time.perf_counter()
-        df: pd.DataFrame = self.get_ads()
+        df = self.get_ads()
         names_list = self.sort_names(df)
         process_time = time.perf_counter() - start_time
         self.store_in_db(names_list, process_time, step_num=1)
