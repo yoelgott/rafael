@@ -50,13 +50,16 @@ def k_way_merge(*args) -> list:
     iterators_dict = {itr: next(itr) for itr in list_iterators}
 
     while True:
-        min_val = min(iterators_dict.values())
-        for val in iterators_dict.values():
-            if val == min_val:
-                merged_list.append(val)
+        if None not in iterators_dict.values():
+            min_val = min(iterators_dict.values())
+            for val in iterators_dict.values():
+                if val == min_val:
+                    merged_list.append(val)
+        else:
+            min_val = 0
 
         iterators_dict = {itr: next(itr, None) if val == min_val else val for itr, val in iterators_dict.items()}
-        iterators_dict = {itr: val for itr, val in iterators_dict.items() if val}
+        iterators_dict = {itr: val for itr, val in iterators_dict.items() if val is not None}
 
         if len(iterators_dict) == 0:
             break

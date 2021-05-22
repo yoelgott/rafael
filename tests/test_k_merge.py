@@ -1,5 +1,7 @@
 import unittest
 import numpy as np
+import random
+import string
 import sys
 
 sys.path.append("../")
@@ -18,6 +20,23 @@ class TestKMerge(unittest.TestCase):
         for li in ints_lists:
             li.sort()
         self.assertListSorted(k_way_merge(*ints_lists))
+
+    def test_strings(self):
+        chars_pool = string.digits + string.ascii_letters
+        string_lists = []
+        for _ in range(10):
+            string_list = []
+            for i in range(200):
+                chars_amount = random.randint(5, 15)
+                this_string = "".join(random.choices(chars_pool, k=chars_amount))
+                string_list.append(this_string)
+            string_list.sort()
+            string_lists.append(string_list)
+        self.assertListSorted(k_way_merge(*string_lists))
+
+    def test_nones(self):
+        nones_lists = [[None] * 30] * 20
+        self.assertListEqual(k_way_merge(*nones_lists), [])
 
 
 if __name__ == "__main__":
