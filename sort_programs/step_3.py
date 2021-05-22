@@ -19,27 +19,28 @@ class Step3(Step0):
 
         chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
         with ThreadPoolExecutor() as executer:
-            # chunk_names = list(executer.map(self.chunk_handler, range(chunks_amount)))
+            chunk_names = list(executer.map(self.chunk_handler, range(chunks_amount)))
 
+        mid_process_time = time.perf_counter() - start_time
+        merged_names = k_way_merge(*chunk_names)
+
+        process_time = time.perf_counter() - start_time
+        self.store_in_db(merged_names, process_time, step_num=self.step_num)
+        print(f"Started step number - {self.step_num} in {process_time} seconds")
+
+    def proposed_parallel_approach(self):
+        chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
+        with ThreadPoolExecutor() as executer:
             processes = []
             manager = multiprocessing.Manager()
             return_list = manager.list()
-            for chunk_df in executer.map(self.chunk_handler, range(chunks_amount)):
-                p = multiprocessing.Process(target=self.sort_names, args=(chunk_df, return_list))
+            for chunk_df in executer.map(self.other_chunk_handler, range(chunks_amount)):
+                p = multiprocessing.Process(target=self.other_sort_names, args=(chunk_df, return_list))
                 p.start()
                 processes.append(p)
             for process in processes:
                 process.join()
-
-        middle_time = time.perf_counter()
-        mid_process_time = middle_time - start_time
-        print("hello")
-        merged_names = k_way_merge(*return_list)
-
-        end_time = time.perf_counter()
-        process_time = end_time - start_time
-        self.store_in_db(merged_names, process_time, step_num=self.step_num)
-        print(f"Started step number - {self.step_num} in {process_time} seconds")
+        return return_list
 
 
 if __name__ == "__main__":

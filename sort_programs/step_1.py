@@ -15,8 +15,7 @@ class Step1(Step0):
         start_time = time.perf_counter()
         df: pd.DataFrame = self.get_ads()
         names_list = self.sort_names(df)
-        end_time = time.perf_counter()
-        process_time = end_time - start_time
+        process_time = time.perf_counter() - start_time
         self.store_in_db(names_list, process_time, step_num=1)
         print(f"Started step number - {self.step_num} in {process_time} seconds")
 
