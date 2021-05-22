@@ -72,9 +72,11 @@ class Step0:
         pass
 
     @staticmethod
-    def sort_names(df: pd.DataFrame, col_name=AdsTableCols.NAME.value) -> list:
+    def sort_names(df: pd.DataFrame, return_list=None, col_name=AdsTableCols.NAME.value) -> list:
         names_list = df[col_name].sort_values().to_list()
-        return names_list
+        if return_list is None:
+            return names_list
+        return_list.append(names_list)
 
     def store_in_db(self, names_list, process_time, step_num, table_name=RESULTS_TABLE_NAME):
         try:
@@ -95,5 +97,6 @@ class Step0:
     def chunk_handler(self, chunk_num=0, chunk_size=CHUNK_SIZE):
         query = f"{QUERY_ADS} as a where a.[index] between {chunk_num * chunk_size} and {(chunk_num + 1) * chunk_size - 1}"
         chunk_df = self.get_ads(query)
-        names_list = self.sort_names(chunk_df)
-        return names_list
+        return chunk_df
+        # names_list = self.sort_names(chunk_df)
+        # return names_list

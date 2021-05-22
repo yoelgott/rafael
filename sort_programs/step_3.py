@@ -1,5 +1,6 @@
 import time
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+import multiprocessing
 
 import pandas as pd
 
@@ -18,8 +19,22 @@ class Step3(Step0):
 
         chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
         with ThreadPoolExecutor() as executer:
-            chunk_names = list(executer.map(self.chunk_handler, range(chunks_amount)))
-        merged_names = k_way_merge(*chunk_names)
+            # chunk_names = list(executer.map(self.chunk_handler, range(chunks_amount)))
+
+            processes = []
+            manager = multiprocessing.Manager()
+            return_list = manager.list()
+            for chunk_df in executer.map(self.chunk_handler, range(chunks_amount)):
+                p = multiprocessing.Process(target=self.sort_names, args=(chunk_df, return_list))
+                p.start()
+                processes.append(p)
+            for process in processes:
+                process.join()
+
+        middle_time = time.perf_counter()
+        mid_process_time = middle_time - start_time
+        print("hello")
+        merged_names = k_way_merge(*return_list)
 
         end_time = time.perf_counter()
         process_time = end_time - start_time
