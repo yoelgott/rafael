@@ -31,7 +31,7 @@ class Step3(Step0):
         I tried to use threading and multiprocessing together because there are 2 different kinds
          of functionalities here:
         1) access the db - witch usually should be implemented with threading
-        2) sort the list - with usually should be implemented with multiprocessing
+        2) sort the list - witch usually should be implemented with multiprocessing
         """
         chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
         with ThreadPoolExecutor() as executer:
