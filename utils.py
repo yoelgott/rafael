@@ -72,24 +72,18 @@ class Step0:
         pass
 
     @staticmethod
-    def split_to_chunks(names):
-        splits_num = int(len(names) / CHUNK_SIZE)
-        chunks = [list(li) for li in np.split(names, splits_num)]
-        return chunks
-
-    @staticmethod
     def sort_names(df: pd.DataFrame, col_name=AdsTableCols.NAME.value) -> list:
         names_list = df[col_name].sort_values().to_list()
         return names_list
 
-    def store_in_db(self, names_list, process_time, step_num):
+    def store_in_db(self, names_list, process_time, step_num, table_name=RESULTS_TABLE_NAME):
         try:
             df = self.sql_con.query_db(QUERY_RESULTS)
         except:
             df = pd.DataFrame()
         df[f"sorting_step{step_num}"] = names_list
         df[f"Sorting_step{step_num}_Process_time"] = process_time
-        self.sql_con.dump_to_db(df, table_name=RESULTS_TABLE_NAME, if_exists="replace")
+        self.sql_con.dump_to_db(df, table_name=table_name, if_exists="replace")
         self.sql_con.close_connection()
 
     def get_ads(self, query=QUERY_ADS):
