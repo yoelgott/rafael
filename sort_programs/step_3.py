@@ -16,8 +16,8 @@ class Step3(Step0):
         start_time = time.perf_counter()
 
         chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
+        chunks_num = [i for i in range(chunks_amount)]
         with ThreadPoolExecutor() as executer:
-            chunks_num = [i for i in range(chunks_amount)]
             chunks = executer.map(self.chunk_handler, chunks_num)
 
         chunk_names = [chunk for chunk in chunks]
