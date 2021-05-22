@@ -79,6 +79,8 @@ class Step0:
     def store_in_db(self, names_list, process_time, step_num, table_name=RESULTS_TABLE_NAME):
         try:
             df = self.sql_con.query_db(QUERY_RESULTS)
+            if len(df) != len(names_list):
+                raise Exception("Columns do not have the same length")
         except:
             df = pd.DataFrame()
         df[f"sorting_step{step_num}"] = names_list
