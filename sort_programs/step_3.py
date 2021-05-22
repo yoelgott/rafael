@@ -25,6 +25,14 @@ class Step3(Step0):
         print(f"Started step number - {self.step_num} in {process_time} seconds")
 
     def proposed_parallel_approach(self):
+        """
+        amlak - this function didn't speed up the process so I didn't implement it in my code
+
+        I tried to use threading and multiprocessing together because there are 2 different kinds
+         of functionalities here:
+        1) access the db - witch usually should be implemented with threading
+        2) sort the list - with usually should be implemented with multiprocessing
+        """
         chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
         with ThreadPoolExecutor() as executer:
             processes = []
