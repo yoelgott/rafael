@@ -16,7 +16,6 @@ class Step1(Step0):
         end_time = time.perf_counter()
         process_time = end_time - start_time
         self.store_in_db(names_list, process_time, step_num=1)
-        self.sql_con.close_connection()
 
 
 if __name__ == "__main__":

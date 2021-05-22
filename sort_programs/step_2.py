@@ -26,7 +26,6 @@ class Step2(Step0):
         process_time = end_time - start_time
 
         self.store_in_db(merged_names, process_time, step_num=2)
-        self.sql_con.close_connection()
 
 
 if __name__ == "__main__":

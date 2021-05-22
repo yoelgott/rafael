@@ -90,6 +90,7 @@ class Step0:
         df[f"sorting_step{step_num}"] = names_list
         df[f"Sorting_step{step_num}_Process_time"] = process_time
         self.sql_con.dump_to_db(df, table_name=RESULTS_TABLE_NAME, if_exists="replace")
+        self.sql_con.close_connection()
 
     def get_ads(self, query=QUERY_ADS):
         df = self.sql_con.query_db(query)
