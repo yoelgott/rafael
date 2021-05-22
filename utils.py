@@ -100,4 +100,4 @@ class Step0:
         query = f"{QUERY_ADS} as a where a.[index] between {chunk_num * chunk_size} and {(chunk_num + 1) * chunk_size - 1}"
         chunk_df = self.get_ads(query)
         names_list = self.sort_names(chunk_df)
-        return chunk_df
+        return names_list
