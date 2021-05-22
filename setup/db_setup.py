@@ -1,7 +1,6 @@
 import pandas as pd
 import datetime as dt
 import random
-import string
 
 from utils import SqlLiteConnection
 from config import *
