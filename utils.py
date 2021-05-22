@@ -56,7 +56,7 @@ def k_way_merge(*args) -> list:
                 if val == min_val:
                     merged_list.append(val)
         else:
-            min_val = 0
+            min_val = None
 
         iterators_dict = {itr: next(itr, None) if val == min_val else val for itr, val in iterators_dict.items()}
         iterators_dict = {itr: val for itr, val in iterators_dict.items() if val is not None}
