@@ -106,5 +106,6 @@ class Step0:
 
     @staticmethod
     def other_sort_names(df: pd.DataFrame, return_list=None, col_name=AdsTableCols.NAME.value):
-        names_list = df[col_name].sort_values().to_list()
+        names_list = df[col_name].to_list()
+        names_list.sort()
         return_list.append(names_list)
