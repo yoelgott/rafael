@@ -12,7 +12,7 @@ For setup env run the following commands in project dir:
 <br>
 `conda activate yoel_test_rafael`
 <br>
-`pip install -f requirements.txt`
+`pip install -r requirements.txt`
 
 ### DB Setup
 
