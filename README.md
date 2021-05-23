@@ -29,3 +29,13 @@ Step 1 - `python sort_programs/step_1.py`
 Step 2 - `python sort_programs/step_2.py`
 <br>
 Step 3 - `python sort_programs/step_3.py`
+
+### API
+
+I implemented the optional api that exposes the "get-ads" method with flask under _api_ folder
+<br>
+Run the server - `python api/app.py`
+<br><br>
+Send requests to the server and see results run the following command:
+<br>
+`python api/api_usage.py`
