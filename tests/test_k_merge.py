@@ -5,7 +5,10 @@ import string
 import sys
 
 sys.path.append("../")
-from rafael.utils import k_merge
+from rafael.utils import MergeLists
+
+
+# from utils import MergeLists
 
 
 class TestKMerge(unittest.TestCase):
@@ -15,13 +18,8 @@ class TestKMerge(unittest.TestCase):
         if not all(sorted_check):
             raise AssertionError("List is not sorted")
 
-    def test_ints(self):
-        ints_lists = np.random.randint(-1000, 1000, size=[20, 80]).tolist()
-        for li in ints_lists:
-            li.sort()
-        self.assertListSorted(k_merge(*ints_lists))
-
-    def test_strings(self):
+    @staticmethod
+    def gen_string_list():
         chars_pool = string.digits + string.ascii_letters
         string_lists = []
         for _ in range(10):
@@ -32,12 +30,31 @@ class TestKMerge(unittest.TestCase):
                 string_list.append(this_string)
             string_list.sort()
             string_lists.append(string_list)
-        self.assertListSorted(k_merge(*string_lists))
+        return string_lists
 
-    # def test_nones(self):
-    #     nones_lists = [[1, 2, None, 78], [23, 25, 27, 90]]
-    #     self.assertRaises(Exception, k_merge, *nones_lists)
-        # self.assertListEqual(k_merge(*nones_lists), [])
+    @staticmethod
+    def gen_ints_lists():
+        ints_lists = np.random.randint(-1000, 1000, size=[20, 80]).tolist()
+        for li in ints_lists:
+            li.sort()
+        return ints_lists
+
+    def test_k_merge(self):
+        ints_lists = self.gen_ints_lists()
+        string_lists = self.gen_string_list()
+
+        self.assertListSorted(MergeLists(ints_lists).merge_k_lists())
+        self.assertListSorted(MergeLists(string_lists).merge_k_lists())
+
+    def test_2_merge(self):
+        l1 = MergeLists.list_to_node([1, 5, 12, 78])
+        l2 = MergeLists.list_to_node([9, 23, 50, 51])
+        lst = MergeLists.node_to_list(MergeLists.merge_2_lists(l1, l2))
+        self.assertListSorted(lst)
+
+    def test_nones(self):
+        nones_lists = [[1, 2, None, 78], [23, 25, 27, 98]]
+        self.assertRaises(TypeError, MergeLists(nones_lists).merge_k_lists)
 
 
 if __name__ == "__main__":

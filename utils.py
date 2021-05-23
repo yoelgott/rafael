@@ -60,7 +60,7 @@ class MergeLists:
         else:
             self.lists = lists
 
-    def merge_k_lists(self) -> ListNode:
+    def merge_k_lists(self) -> list:
         lists = self.lists
         if not lists or len(lists) == 0:
             return None
