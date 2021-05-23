@@ -16,4 +16,4 @@ Create DB - `python setup/db_setup.py`
 <br>
 This creates a db file with _'ads' table_ in path - `db/rafael.db`
 <br><br>
-Example query (after db setup) - `'select * from ads'`
+Example query over db (after db setup) - `python db/example_query_db.py`
