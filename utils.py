@@ -3,11 +3,8 @@ import pandas as pd
 import sqlite3
 import sys
 
-try:
-    sys.path.append("./")
-    from rafael.config import *
-except:
-    from config import *
+sys.path.append("./")
+from rafael.config import *
 
 
 class SqlLiteConnection:
