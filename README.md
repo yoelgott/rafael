@@ -1,5 +1,7 @@
 # Yoel's Rafael Test
 
+**Follow the instructions bellow chronologically**
+
 ### Environment Setup
 
 I used a conda environment for the project.
