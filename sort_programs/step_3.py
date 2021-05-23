@@ -1,14 +1,16 @@
 import time
 from concurrent.futures import ThreadPoolExecutor
 import multiprocessing
+import sys
 
-from utils import Step0, MergeLists
-from config import *
+sys.path.append("../")
+from rafael.utils import Step0, MergeLists
+from rafael.config import *
 
 
 class Step3(Step0):
     def __init__(self):
-        super().__init__(f"../{DB_FILE}")
+        super().__init__(DB_FILE)
         self.step_num = 3
 
     def run(self):

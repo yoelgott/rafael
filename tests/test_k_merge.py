@@ -8,9 +8,6 @@ sys.path.append("../")
 from rafael.utils import MergeLists
 
 
-# from utils import MergeLists
-
-
 class TestKMerge(unittest.TestCase):
     @staticmethod
     def assertListSorted(my_list: list):

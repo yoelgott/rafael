@@ -1,12 +1,14 @@
 import time
+import sys
 
-from utils import Step0, MergeLists
-from config import *
+sys.path.append("../")
+from rafael.utils import Step0, MergeLists
+from rafael.config import *
 
 
 class Step2(Step0):
     def __init__(self):
-        super().__init__(f"../{DB_FILE}")
+        super().__init__(DB_FILE)
         self.step_num = 2
 
     def run(self):
