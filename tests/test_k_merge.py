@@ -5,7 +5,7 @@ import string
 import sys
 
 sys.path.append("../")
-from rafael.utils import k_way_merge
+from rafael.utils import k_merge
 
 
 class TestKMerge(unittest.TestCase):
@@ -19,7 +19,7 @@ class TestKMerge(unittest.TestCase):
         ints_lists = np.random.randint(-1000, 1000, size=[20, 80]).tolist()
         for li in ints_lists:
             li.sort()
-        self.assertListSorted(k_way_merge(*ints_lists))
+        self.assertListSorted(k_merge(*ints_lists))
 
     def test_strings(self):
         chars_pool = string.digits + string.ascii_letters
@@ -32,11 +32,12 @@ class TestKMerge(unittest.TestCase):
                 string_list.append(this_string)
             string_list.sort()
             string_lists.append(string_list)
-        self.assertListSorted(k_way_merge(*string_lists))
+        self.assertListSorted(k_merge(*string_lists))
 
-    def test_nones(self):
-        nones_lists = [[None] * 30] * 20
-        self.assertListEqual(k_way_merge(*nones_lists), [])
+    # def test_nones(self):
+    #     nones_lists = [[1, 2, None, 78], [23, 25, 27, 90]]
+    #     self.assertRaises(Exception, k_merge, *nones_lists)
+        # self.assertListEqual(k_merge(*nones_lists), [])
 
 
 if __name__ == "__main__":

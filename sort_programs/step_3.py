@@ -2,7 +2,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 import multiprocessing
 
-from utils import Step0, k_merge
+from utils import Step0, MergeLists
 from config import *
 
 
@@ -18,7 +18,7 @@ class Step3(Step0):
         chunks_amount = int(RECORDS_NUM / CHUNK_SIZE)
         with ThreadPoolExecutor() as executer:
             chunk_names = list(executer.map(self.chunk_handler, range(chunks_amount)))
-        merged_names = k_merge(*chunk_names)
+        merged_names = MergeLists(chunk_names).merge_k_lists()
 
         process_time = time.perf_counter() - start_time
         self.store_in_db(merged_names, process_time, step_num=self.step_num)

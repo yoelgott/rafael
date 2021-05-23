@@ -47,11 +47,79 @@ class SqlLiteConnection:
         return self.conn
 
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+class MergeLists:
+    def __init__(self, lists, convert_to_links=True):
+        if convert_to_links:
+            self.lists = [self.list_to_link(li) for li in lists]
+        else:
+            self.lists = lists
+
+    def merge_k_lists(self) -> ListNode:
+        lists = self.lists
+        if not lists or len(lists) == 0:
+            return None
+
+        while len(lists) > 1:
+            merged_lists = []
+
+            for i in range(0, len(lists), 2):
+                l1 = lists[i]
+                l2 = lists[i + 1] if i + 1 < len(lists) else None
+                merged_lists.append(self.merge_2_lists(l1, l2))
+            lists = merged_lists
+        merged_list = self.link_to_list(lists[0])
+        return merged_list
+
+    @staticmethod
+    def merge_2_lists(l1: ListNode, l2: ListNode) -> ListNode:
+        dummy = ListNode()
+        tail = dummy
+
+        while l1 and l2:
+            if l1.val < l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        if l1:
+            tail.next = l1
+        if l2:
+            tail.next = l2
+        return dummy.next
+
+    @staticmethod
+    def link_to_list(link: ListNode):
+        my_list = []
+        while link:
+            my_list.append(link.val)
+            link = link.next
+        return my_list
+
+    def list_to_link(self, lst):
+        """Takes a Python list and returns a Link with the same elements."""
+        prev = ListNode(val=lst[0])
+        first = prev
+        for i in range(1, len(lst)):
+            current = ListNode(lst[i])
+            prev.next = current
+            prev = current
+        return first
+
+
 def k_merge(*args) -> list:
     merged_list = []
     list_iterators = [iter(li) for li in args]
     iterators_dict = {itr: next(itr) for itr in list_iterators}
 
+    counter = 0
     while True:
         if None in iterators_dict.values():
             raise Exception("Input lists cannot have null values in them")
@@ -64,7 +132,9 @@ def k_merge(*args) -> list:
         iterators_dict = {itr: next(itr, None) if val == min_val else val for itr, val in iterators_dict.items()}
         iterators_dict = {itr: val for itr, val in iterators_dict.items() if val is not None}
 
+        counter += 1
         if len(iterators_dict) == 0:
+            print(counter)
             break
 
     return merged_list
