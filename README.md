@@ -2,4 +2,4 @@
 
 ### DB Setup
 
-<p>I chose to use `SQLite database` for convenience and simplicity</p>
+<p>I chose to use **SQLite database** for convenience and simplicity</p>
