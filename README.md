@@ -4,7 +4,7 @@
 
 I used a conda environment for the project.
 <br>
-For setup env run the following command:
+For setup env run the following command in project dir:
 <br>
 `conda create --name yoel_test_rafael --file requirements.txt`
 
