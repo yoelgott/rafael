@@ -8,11 +8,9 @@ I used a conda environment for the project.
 <br>
 For setup env run the following commands in project dir:
 <br>
-`conda create -n yoel_test_rafael python=3.8.10`
+`conda env create -f environment.yml`
 <br>
 `conda activate yoel_test_rafael`
-<br>
-`pip install -r requirements.txt`
 
 ### DB Setup
 
