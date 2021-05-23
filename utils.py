@@ -47,19 +47,19 @@ class SqlLiteConnection:
         return self.conn
 
 
-def k_way_merge(*args) -> list:
+def k_merge(*args) -> list:
     merged_list = []
     list_iterators = [iter(li) for li in args]
     iterators_dict = {itr: next(itr) for itr in list_iterators}
 
     while True:
-        if None not in iterators_dict.values():
-            min_val = min(iterators_dict.values())
-            for val in iterators_dict.values():
-                if val == min_val:
-                    merged_list.append(val)
-        else:
-            min_val = None
+        if None in iterators_dict.values():
+            raise Exception("Input lists cannot have null values in them")
+
+        min_val = min(iterators_dict.values())
+        for val in iterators_dict.values():
+            if val == min_val:
+                merged_list.append(val)
 
         iterators_dict = {itr: next(itr, None) if val == min_val else val for itr, val in iterators_dict.items()}
         iterators_dict = {itr: val for itr, val in iterators_dict.items() if val is not None}
