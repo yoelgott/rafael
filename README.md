@@ -32,6 +32,11 @@ Step 2 - `python sort_programs/step_2.py`
 <br>
 Step 3 - `python sort_programs/step_3.py`
 
+### Test K-Merge Function
+I wrote a test for the k-merge function (in _utils.py_) under _tests_ folder
+<br>
+Run test - `python tests/test_k_merge.py`
+
 ### API
 
 I implemented the optional api that exposes the "get-ads" method with flask under _api_ folder
