@@ -1,5 +1,7 @@
 # Yoel's Rafael Test
 
+### Environment Setup
+
 ### DB Setup
 
 I chose to use **SQLite database** for convenience and simplicity
