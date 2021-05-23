@@ -2,6 +2,12 @@
 
 ### Environment Setup
 
+I used a conda environment for the project.
+<br>
+For setup env run the following command:
+<br>
+`conda create --name yoel_test_rafael --file requirements.txt`
+
 ### DB Setup
 
 I chose to use **SQLite database** for convenience and simplicity
