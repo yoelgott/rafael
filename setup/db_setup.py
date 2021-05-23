@@ -22,8 +22,7 @@ class CreateAdsTable:
         self.upload_to_db()
 
     def upload_to_db(self):
-        db_file = f"../{DB_FILE}"
-        conn = SqlLiteConnection(db_file)
+        conn = SqlLiteConnection(DB_FILE)
         conn.dump_to_db(self.df, ADS_TABLE_NAME, if_exists="replace", index=True)
         conn.close_connection()
 
