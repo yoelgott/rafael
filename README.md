@@ -36,6 +36,6 @@ I implemented the optional api that exposes the "get-ads" method with flask unde
 <br>
 Run the server - `python api/app.py`
 <br><br>
-Send requests to the server and see results run the following command:
+Send requests to the server and see results (while the server is running) run the following command:
 <br>
 `python api/api_usage.py`
